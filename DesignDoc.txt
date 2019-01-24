@@ -1,0 +1,72 @@
+/**** Design Document for Sales Tax ****/
+
+/** Problem Discription **/
+Given a series of n items 1, ... , n return the total cost, or 
+in other words, a receipt for all n items. 
+
+- More to know: 
+For all n, n is associated with the name of the product, and a cost.
+Given that a reciept is requested, tax must be included. Basic Tax applies to
+all items execpt books, food, and medical products. 
+
+/** File Structure **/ 
+- DesignDocument.txt -> information about the project/problem
+- src 
+    - Receipt.java <- contains a collection of exempt and non exempt items 
+    - Parse.java <- Determaines what type of Imported Item based on input 
+    - Item.java <- abstract class 
+        - ExemptItem.java <- items such as books, food, and medical products
+        - TaxedItem.java  <- everything else not in ExemptItem.java, C
+                          <- can be imported and thus apply 5% more tax 
+- db  
+    - input.txt <- input to provide to test 
+    - nonExempt.txt <- column of names of non exempt items, food, medical, books 
+- tests
+    - ReceiptTest.java
+    - ExemptItemTest.java
+    - TaxedItemTest.java 
+
+/** Data Structures **/
+The data structure that will be best to use is a HashMap.
+Within the HashMap, it is essential that we have the name
+of the the item and price. The HashMap will primarily be used in the 
+ExemptItem.java, and TaxedItem.java, files. In Receipt.java, we want to 
+maintain an ArrayList of HashMaps for each type of item. 
+
+Basically, two ArrayLists that maintain information about each item. For the type of Items, that require tax, it 
+may be useful to keep more information stored such as the amount taxed after the purchase. 
+It may be very helpful to add the quantity within the item. Another variable to consider is to add a boolean that 
+asserts whether the item is imported or not based on the Parsing in Parse.java
+
+/** OOP **/
+This problem could be done without OOP, but the code would be a mess.
+Given that code should be clean, and concise, OOP is the best approach for 
+this scenerio. Using an abstract classes, implemting an abstract tax method will
+be key for distinguising the types. Given that the information passed into a class is:
+quantity, name of item, cost, constructors would be neccesary. Interfaces do not allow constructors,
+thus polymorphism and abstract classes will be used. 
+
+
+/** Input **/
+Types of Input -- Based on the email sent 
+
+Name of Column : Type 
+quantity : INT 
+itemName : STRING 
+cost : DOUBLE
+
+Input will use a text file that is comma delimited in the following way:
+
+
+/* Format */
+quantity, itemName, cost 
+
+ex. 
+
+1, box of chocalate ,2.99
+2, imported fish, 3.67
+... , ... , ...
+... , ... , ...
+... , ... , ...
+1 , poke, 14.29
+
