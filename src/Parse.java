@@ -85,6 +85,7 @@ public class Parse {
         String[] splitWords = itemName.split(" "); 
         Set<String> conciseWords = new HashSet<>();
         // if the word contains the ignore words do not add 
+        // do search ... ?
         String current; 
         for (int j = 0; j < splitWords.length; j++) {
             current = splitWords[j].replaceAll("^\\s+ \\s+$", ""); // remove whitespace from word 

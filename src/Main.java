@@ -19,9 +19,9 @@ public class Main {
         Scanner fileScanner = new Scanner(fd); 
     
         // open and get every line 
-        Integer quantity = 0; 
-        String itemName = "";
-        Double itemCost = 0.0;
+        Integer quantity; 
+        String itemName;
+        Double itemCost;
 
         while(fileScanner.hasNextLine()) {
             String oneLine = fileScanner.nextLine(); 
@@ -30,7 +30,7 @@ public class Main {
             quantity = Integer.parseInt(columns[0]); 
             itemName = columns[1]; 
             String serializedInfo = doParse(itemName);
-            itemCost =  Double.parseDouble(columns[2]); 
+            itemCost = Double.parseDouble(columns[2]); 
             System.out.println(oneLine);
             // for every line we create an object 
             //createItem(quantity, itemName,itemCost,serializedInfo); 
