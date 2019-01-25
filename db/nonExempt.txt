@@ -2,7 +2,7 @@ food
 mcdonalds
 coffee
 chips
-chocolate
+chocolate 
 nobu 
 fish 
 sushi 

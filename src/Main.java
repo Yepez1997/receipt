@@ -55,7 +55,7 @@ public class Main {
         getItemInfo.setName(itemName);
         // get info does all the work and sets the proper 
         // instances in the class
-        getItemInfo.getInfo(itemName); 
+        String[] nameInfo = getItemInfo.getInfo(itemName); 
         // getInfo about imported, exempt 
         Boolean imported = getItemInfo.getImported(); 
         if (imported) {
@@ -64,8 +64,8 @@ public class Main {
         else {
             serializedInformation += "0";
         }
-        Boolean taxExempt = getItemInfo.getIsExemptedItem();
-        System.out.println(taxExempt);
+        Boolean taxExempt = getItemInfo.getExempt(nameInfo); 
+        //System.out.println(taxExempt);
         if (taxExempt) {
             serializedInformation += "1"; 
         }

@@ -13,6 +13,9 @@
 // important practice to not use .*; 
 import java.util.ArrayList;
 import java.util.Set;
+
+import javax.naming.spi.DirObjectFactory;
+
 import java.util.HashSet;
 
 import com.sun.tools.javac.code.Attribute.Array;
@@ -42,6 +45,7 @@ public class Parse {
         try {
             // change to your directory: pwd + file.txt and paste 
             String miniDBLocation = "/Users/aurelianoyepez/Desktop/salesTaxThoughtWords/db/nonExempt.txt";
+            ArrayList<String> dbItems = new ArrayList<String>();
             FileInputStream fd = new FileInputStream(miniDBLocation);
             Scanner fileScanner = new Scanner(fd); 
             
@@ -50,17 +54,27 @@ public class Parse {
             while (fileScanner.hasNextLine()) {
                 String exemptItems = fileScanner.nextLine(); 
                 exemptItems = exemptItems.replaceAll("^\\s+ \\s+$", ""); // replace whitespace 
-                for (int i = 0; i < importantWordsInString.length; i++) {
-                    if (importantWordsInString[i] == exemptItems) { 
-                        return true;
-                    } 
-                }
+                //System.out.println(exemptItems);
+                // TODO:
+                // insert to array and check that way 
+                dbItems.add(exemptItems);    
             }
-            return false; 
+            String search;
+            for (int i = 0; i < dbItems.size(); i++) {
+                search = dbItems.get(i).trim(); 
+                for (String str : importantWordsInString) {
+                    if(str.trim().contains(search)) {
+                        System.out.println("here");
+                        return true;
+                    }
+                }
+            }   
             fileScanner.close(); 
+            return false; 
         }
         catch (FileNotFoundException fnfe) {
             System.out.println("File was not found");
+            return false;
         }
     }
 
@@ -102,7 +116,7 @@ public class Parse {
 
     /* Calls isExempt and isImport to return critical
     *  information on the obect being parsed.  */
-    public void getInfo(String itemName) {
+    public String[] getInfo(String itemName) {
         String[] splitWords = itemName.split(" ");
         // first one should be the "imported" if not it is false 
         String firstWordInSplit = splitWords[0];
@@ -115,9 +129,15 @@ public class Parse {
             holder += (splitWords[i] + " ");
         }
         String[] importantWordsInString = stripInformation(holder);
-        boolean isExempt = isExempt(importantWordsInString);  
+        //boolean isExempt = isExempt(importantWordsInString); 
+        return importantWordsInString; 
     }
 
+    public boolean getExempt(String[] importantWords) {
+        boolean tf = isExempt(importantWords);
+        System.out.println(tf);
+        return tf; 
+    }
 
     /* set name of itemName */
     public void setName(String name) {
