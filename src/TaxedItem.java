@@ -1,38 +1,37 @@
-
-class TaxedItem implements Item {
+class TaxedItem extends Item {
 
     public TaxedItem(Integer quantity, String name, Double cost, String serializedInfo) {
-        this.quantity = quantity;
-        this.name = name;
-        this.cost = cost;
-        this.imported = serializedInfo.charAt(0);
-    }
-    public Double calculateImportTax() {
-        return this.cost * quantity *importTax;
+        super(quantity, name, cost, serializedInfo);
     }
 
-    // important 
-    public Double calculateTaxDifference() {
-        return calculateTotalTax() - this.cost;
+
+    /* Calculate the difference for the total tax and original price. */
+    @Override
+    void calculateTaxDifference() {
+        super.itemCostDifference = calculateTotalTax() - super.itemCost;
     }
 
-    public Double calculateSalesTax() {
-        return this.cost * quantity * salesTax;
-    }
+    /* Calculate sales type. */
+    @Override
+    Double calculateSalesTax() {
+        return super.itemCost * super.itemQuantity * this.salesTax;
+ }
 
-    public Double calculateTotalTax() {
+
+    /* Calculate the total tax, includes sales and import 
+     *  Both are not required. */
+    @Override
+    Double calculateTotalTax() {
         Double totalTax = calculateImportTax() + calculateSalesTax();
         return totalTax;
     }
 
-
-    /* intances  */
-    private Integer quantity; 
-    private String name;
-    private Double cost;
-    private Double total;
-    // we only care about the first one now 
-    private String imported;
-
+     /* Sales Tax */
+     final Double salesTax = 0.10; 
 
 }
+
+
+
+
+\

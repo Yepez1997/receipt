@@ -32,31 +32,21 @@ public class Main {
             String serializedInfo = doParse(itemName);
             itemCost = Double.parseDouble(columns[2]); 
             System.out.println(oneLine);
-            // for every line we create an object 
-            //createItem(quantity, itemName,itemCost,serializedInfo); 
         }
         fileScanner.close();
      }
-     // file not found 
      catch (FileNotFoundException fnfe) {
          System.out.println("File was not found");
      }
     }
 
-    // need to documement alot better if we want to have 
-    // serialized information 
-
     /* Gets the info needed to create the objects */
     public static String doParse(String itemName) {
         String serializedInformation = ""; 
         Parse getItemInfo = new Parse(); 
-        // just have to set name 
         getItemInfo.setUpIgnoreWords();
         getItemInfo.setName(itemName);
-        // get info does all the work and sets the proper 
-        // instances in the class
         String[] nameInfo = getItemInfo.getInfo(itemName); 
-        // getInfo about imported, exempt 
         Boolean imported = getItemInfo.getImported2(nameInfo); 
         if (imported) {
             serializedInformation += "1";
@@ -78,7 +68,6 @@ public class Main {
         return serializedInformation;
     }
 
-    // TODO: CREATE ABSTRACT CLASSES 
 
     /* Important to note what the serialized information does: 
     *  Seriazlized Info is a size of len 2.  
@@ -88,7 +77,6 @@ public class Main {
     * */    
 
 
-    /*
     public static void createItem(Integer quantity, String name, Double cost, String serializedInfo) {
         // here we want to create the classes 
         // info needed :  name, is imported, is exempt, quantity, cost 
@@ -97,9 +85,6 @@ public class Main {
         // now we want to create abstract classes; s
 
     }
-
-
-    */
 
 
 }

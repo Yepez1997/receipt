@@ -1,36 +1,33 @@
-class ExemptItem implements Item {
+class ExemptItem extends Item {
 
-    public ExceptItem(Integer quantity, String name, Double cost, String serializedInfo) {
-        this.quantity = quantity;
-        this.name = name;
-        this.cost = cost;
-        this.imported = serializedInfo.charAt(0);
+    public ExemptItem(Integer quantity, String name, Double cost, String serializedInfo) {
+        super(quantity, name, cost, serializedInfo);
     }
 
-    public Double calculateImportTax() {
-        return this.cost * quantity *importTax;
+
+    /* Calculate the difference for the total tax and original price. */
+    @Override
+    void calculateTaxDifference() {
+        super.itemCostDifference = calculateTotalTax() - super.itemCost;
     }
 
-    public Double calculateTaxDifference() {
-        return calculateTotalTax() - this.cost;
-    }
-
-    public Double calculateSalesTax() {
+    /* Calculate sales type. */
+    @Override
+    Double calculateSalesTax() {
         return 0.0;
     }
 
-    public Double calculateTotalTax() {
-        Double totalTax = calculateImportTax();
+    /* Calculate the total tax, includes sales and import 
+     *  Both are not required. */
+    @Override
+    Double calculateTotalTax() {
+        Double totalTax = calculateImportTax() + calculateSalesTax();
         return totalTax;
     }
 
-
-    /* intances  */
-    private Integer quantity; 
-    private String name;
-    private Double cost; 
-    // we only care about the first one now 
-    private String imported;
-
-
+    
 }
+
+
+
+
