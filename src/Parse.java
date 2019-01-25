@@ -32,7 +32,7 @@ public class Parse {
     /* Returns true if the item is tax exempt. */
     public boolean isExempt(ArrayList<String> importantWordsInString) {
         // want to open file and see if the elements are presnet
-        
+    
         return false; 
     }
 
@@ -51,8 +51,8 @@ public class Parse {
     }
 
     /* Calls isExempt and isImport to return critical
-    *  information on the obect being parsed. */
-    public ArrayList<T> getInfo() {
+    *  information on the obect being parsed.  */
+    public void getInfo() {
         ArrayList<String> splitWords = itemName.split(" ");
         // first one should be the "imported" if not it is false 
         String firstWordInSplit = splitWords.get(0);
@@ -67,7 +67,12 @@ public class Parse {
         }
         ArrayList<String> importantWordsInString = stripInformation(holder);
         boolean isItemTaxExempt = isExempt(importantWordsInString);  
-        return null; 
+        if (isItemTaxExempt) {
+            this.isExemptItem = true;
+        } 
+        else {
+            this.isExemptItem = false; 
+        }
     }
 
     /* set name of itemName */
@@ -86,13 +91,23 @@ public class Parse {
         return isImported;
     }
 
+    /* get isExemptedItem boolean */
+      public boolean getIsExemptedItem() {
+        return isImported;
+    }
+
      // ------------------------------------------------------------ // 
+
+     // Making private to follow encapsulation 
 
      /* The item name to be parsed. */
      private String itemName; 
 
      /* Determaines if the item will be imported or not. */
      private boolean isImported; 
+
+     /* Determaines if the item will be exempt or not */
+     private boolean isExemptItem; 
 
      /* List of words to ignore */
      private ArrayList<String> ignoreWords = {"a","at","the","of","an"}; 

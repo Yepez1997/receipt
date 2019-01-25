@@ -12,6 +12,10 @@ all items execpt books, food, and medical products.
 /** File Structure **/ 
 - DesignDocument.txt -> information about the project/problem
 - src 
+    - inputFiles
+        - input1.txt -- input one from email
+        - input2.txt -- input two from email
+        - input3.txt -- input three from email
     - Receipt.java <- contains a collection of exempt and non exempt items 
     - Parse.java <- Determaines what type of Imported Item based on input 
     - Item.java <- abstract class 
