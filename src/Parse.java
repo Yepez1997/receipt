@@ -27,12 +27,10 @@ import java.io.FileInputStream;
 public class Parse {
 
     /* Returns true if the item is imported. */
-    // want to pass in important string 
     public boolean isImport(String[] importantWords) {
-        
         String search = "imported";
         for (String str : importantWords) {
-            if(str.trim().contains(search)) {                    System.out.println("here");
+            if(str.trim().contains(search)) {      
                 return true;
             }
         }
@@ -40,10 +38,8 @@ public class Parse {
     }   
 
 
-
     /* Returns true if the item is tax exempt. */
     public boolean isExempt(String[] importantWordsInString) {
-        // want to open file and see if the elements are presnet
         try {
             // change to your directory: pwd + file.txt and paste 
             String miniDBLocation = "/Users/aurelianoyepez/Desktop/salesTaxThoughtWords/db/nonExempt.txt";
@@ -51,13 +47,10 @@ public class Parse {
             FileInputStream fd = new FileInputStream(miniDBLocation);
             Scanner fileScanner = new Scanner(fd); 
             
-            // o(n**2) doing these loops maybe improve ? 
-            // if input is short best case is linear 
+
             while (fileScanner.hasNextLine()) {
                 String exemptItems = fileScanner.nextLine(); 
-                exemptItems = exemptItems.replaceAll("^\\s+ \\s+$", ""); // replace whitespace 
-                //System.out.println(exemptItems);
-                // insert to array and check that way 
+                exemptItems = exemptItems.replaceAll("^\\s+ \\s+$", "");
                 dbItems.add(exemptItems);    
             }
             String search;
@@ -65,7 +58,6 @@ public class Parse {
                 search = dbItems.get(i).trim(); 
                 for (String str : importantWordsInString) {
                     if(str.trim().contains(search)) {
-                        System.out.println("here");
                         return true;
                     }
                 }
@@ -84,52 +76,34 @@ public class Parse {
     public String[] stripInformation(String itemName) {
         String[] splitWords = itemName.split(" "); 
         Set<String> conciseWords = new HashSet<>();
-        // if the word contains the ignore words do not add 
-        // do search ... ?
-        String current; 
-        for (int j = 0; j < splitWords.length; j++) {
-            current = splitWords[j].replaceAll("^\\s+ \\s+$", ""); // remove whitespace from word 
-            if (current == "at" || current == "of" || current == "the" || current == "an") {
-                continue;
-            }
-            else {
-                conciseWords.add(splitWords[j]);
-                //System.out.println(splitWords[j]);
+
+        for (int i = 0; i < this.ignoreWords.size(); i++) {
+            String search = this.ignoreWords.get(i);
+            for (String str : splitWords){ 
+                if(!str.trim().contains(search)) {      
+                    conciseWords.add(str);
+                }
             }
         }
+
+        // change back to regular list 
         int count = 0;
         String[] conciseWordsToStringList = new String[conciseWords.size()];
         for (String s : conciseWords) {
-            //System.out.println(s);
-            if (s == "at" || s == "of" || s == "the" || s == "an") {
-                count++; 
-                continue;
-            }
-            else {
+            System.out.println(s);
             conciseWordsToStringList[count] = s;  
             count++; 
-            }
         }
-        // make sure we do not miss any elts 
-        assert(conciseWords.size() == conciseWordsToStringList.length);
+        
         return conciseWordsToStringList;
+
     }
 
 
     /* Calls isExempt and isImport to return critical
     *  information on the obect being parsed.  */
     public String[] getInfo(String itemName) {
-        String[] splitWords = itemName.split(" ");
-        // first one should be the "imported" if not it is false 
-        //String firstWordInSplit = splitWords[0];
-        // join array list of strings with spaces
-        // then strip information
-        String holder = ""; // concat to here 
-        // this might error 
-        for (int i = 0; i < splitWords.length; i++) {
-            holder += (splitWords[i] + " ");
-        }
-        String[] importantWordsInString = stripInformation(holder);
+        String[] importantWordsInString = stripInformation(itemName);
         //boolean isExempt = isExempt(importantWordsInString); 
         return importantWordsInString; 
     }
@@ -173,10 +147,6 @@ public class Parse {
       public boolean getIsExemptedItem() {
         return isExemptItem;
     }
-
-     // ------------------------------------------------------------ // 
-
-     // Making private to follow encapsulation 
 
      /* The item name to be parsed. */
      private String itemName; 
