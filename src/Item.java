@@ -13,18 +13,8 @@ abstract class Item {
 
     /* abstract methods */
     abstract Double calculateTotalTax();
-    abstract Double calculateSalesTax();
     abstract void calculateTaxDifference(); 
 
-     /* Calculate the imported tax. */
-    public Double calculateImportTax() {
-        if (this.imported == '1') {
-            return this.itemCost * this.itemQuantity * this.importedTax;
-        } 
-        else {
-            return 0.0;
-        }
-    }
 
     /* Get cost */
     public Double getCost() {
@@ -68,7 +58,7 @@ abstract class Item {
     protected Character imported;
 
     /* Import Tax. */
-    final Double importedTax = 0.05;
+    protected Double importedTax = 0.05;
 
    
 }

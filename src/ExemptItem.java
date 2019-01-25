@@ -2,6 +2,7 @@ class ExemptItem extends Item {
 
     public ExemptItem(Integer quantity, String name, Double cost, String serializedInfo) {
         super(quantity, name, cost, serializedInfo);
+        this.totalCost = 0.0;
     }
 
 
@@ -11,21 +12,24 @@ class ExemptItem extends Item {
         super.itemCostDifference = calculateTotalTax() - super.itemCost;
     }
 
-    /* Calculate sales type. */
-    @Override
-    Double calculateSalesTax() {
-        return 0.0;
-    }
-
     /* Calculate the total tax, includes sales and import 
      *  Both are not required. */
     @Override
     Double calculateTotalTax() {
-        Double totalTax = calculateImportTax() + calculateSalesTax();
-        return totalTax;
+        if (super.imported == '1') {
+            this.totalCost += super.itemCost * (1 + importedTax);
+            return this.totalCost;
+        }
+        return super.itemCost;
     }
 
-    
+    /* Total taxes + cost */
+    public Double getTotalTaxes() {
+        return this.totalCost; 
+    }
+
+    /* total cost */
+    private Double totalCost; 
 }
 
 
