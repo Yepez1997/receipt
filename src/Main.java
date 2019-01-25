@@ -28,6 +28,7 @@ public class Main {
             itemName = columns[1]; 
             String serializedInfo = parseString(itemName);
             itemCost = Double.parseDouble(columns[2]); 
+            createItem(quantity, itemName, itemCost, serializedInfo);
             System.out.println(oneLine);
         }
         fileScanner.close();
@@ -35,7 +36,7 @@ public class Main {
      catch (FileNotFoundException fnfe) {
          System.out.println("File was not found");
      }
-     
+
     }
 
     /* Gets the info needed to create the objects */
@@ -71,8 +72,20 @@ public class Main {
     *  The second index is if the item is exempt: exempt ? 1 : 0
     *  Serialized info is critical to creating the right class. */    
     public static void createItem(Integer quantity, String name, Double cost, String serializedInfo) {
-        Character isImported = serializedInfo.charAt(0);
+        //Character isImported = serializedInfo.charAt(0);
         Character isExempt = serializedInfo.charAt(1);
+        
+        // create exempt class
+        if (isExempt == '1') {
+            Item taxedItem = new ExemptItem(quantity,name,cost,serializedInfo);
+            System.out.println("Object created exempt");
+
+        }
+        // create a taxed class 
+        else {
+            Item taxedItem = new TaxedItem(quantity,name,cost,serializedInfo); 
+            System.out.println("Object created taxed");
+        }
 
     }
 
