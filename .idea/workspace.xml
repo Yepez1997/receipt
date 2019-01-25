@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0a00f637-f4a2-44d0-a76d-cd56b02b9f60" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/DesignDoc.txt" beforeDir="false" afterPath="$PROJECT_DIR$/DesignDoc.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/input1.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/ParseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/ParseTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="0a00f637-f4a2-44d0-a76d-cd56b02b9f60" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -160,7 +154,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548383940122" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548384014085" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -200,12 +194,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1548383056842</updated>
-      <workItem from="1548383060140" duration="874000" />
+      <workItem from="1548383060140" duration="1072000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="874000" />
+    <option name="totallyTimeSpent" value="1072000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
