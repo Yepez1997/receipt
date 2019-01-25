@@ -17,14 +17,22 @@ import com.sun.tools.javac.code.Attribute.Array;
 public class Parse {
 
     /* Returns true if the item is imported. */
-    public boolean isImport(String itemName) {
-        this.isImported = false;
-        return false;
+    public boolean isImport(String firstWordInSplit) {
+        if (itemOneName == "imported") {
+            this.isImported = true;
+            return true; 
+        }
+        else {
+            this.isImported = false; 
+            return false; 
+        }
     }
 
 
     /* Returns true if the item is tax exempt. */
-    public boolean isExempt(String itemName) {
+    public boolean isExempt(ArrayList<String> importantWordsInString) {
+        // want to open file and see if the elements are presnet
+        
         return false; 
     }
 
@@ -33,6 +41,7 @@ public class Parse {
     public ArrayList<String> stripInformation(String itemName) {
         ArrayList<String> splitWords = itemName.split(" "); 
         ArrayList<String> conciseWords = {}; 
+        // if the word contains the ignore words do not add 
         for (String s : splitWords) {
              if (!Arrays.asList(this.ignoreWords).contains(s)) {
                 conciseWords.add(s); 
@@ -43,7 +52,21 @@ public class Parse {
 
     /* Calls isExempt and isImport to return critical
     *  information on the obect being parsed. */
-    public ArrayList<Integer> getInfo() {
+    public ArrayList<T> getInfo() {
+        ArrayList<String> splitWords = itemName.split(" ");
+        // first one should be the "imported" if not it is false 
+        String firstWordInSplit = splitWords.get(0);
+        if (isImported(firstWordInSplit)) {
+            this.isImported = true;
+        } 
+        // join array list of strings with spaces
+        // then strip information
+        String holder = ""; // concat to here 
+        for (int i = 0; i < splitWords.size(); i++) {
+            holder += (splitWords.get(0) + " ");
+        }
+        ArrayList<String> importantWordsInString = stripInformation(holder);
+        boolean isItemTaxExempt = isExempt(importantWordsInString);  
         return null; 
     }
 
@@ -51,6 +74,7 @@ public class Parse {
     public setName(String name) {
         this.itemName = name;
     }
+
 
     /* get item name */
     public String getName() {
@@ -61,6 +85,8 @@ public class Parse {
     public boolean getImported() {
         return isImported;
     }
+
+     // ------------------------------------------------------------ // 
 
      /* The item name to be parsed. */
      private String itemName; 
