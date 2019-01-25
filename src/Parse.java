@@ -12,13 +12,20 @@
 
 // important practice to not use .*; 
 import java.util.ArrayList;
-import com.sun.tools.javac.code.Attribute.Array;
+import java.util.Set;
+import java.util.HashSet;
 
+import com.sun.tools.javac.code.Attribute.Array;
+import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.FileInputStream;
+
+/* Parse */
 public class Parse {
 
     /* Returns true if the item is imported. */
     public boolean isImport(String firstWordInSplit) {
-        if (itemOneName == "imported") {
+        if (firstWordInSplit == "imported") {
             this.isImported = true;
             return true; 
         }
@@ -30,64 +37,101 @@ public class Parse {
 
 
     /* Returns true if the item is tax exempt. */
-    public void isExempt(ArrayList<String> importantWordsInString) {
+    public boolean isExempt(String[] importantWordsInString) {
         // want to open file and see if the elements are presnet
-        FileInputStream fd = new FileInputStream();
-        Scanner fileScanner = new Scanner(fd); 
-        
-        // o(n**2) doing these loops maybe improve ? 
-        // if input is short best case is linear 
-        while (fileScanner.hasNextLine()) {
-            String exemptItems = fileScanner.nextLine(); 
-            for (int i = 0; i < importantWordsInString.size(); i++) {
-                if (importantWordsInString == exemptItems) {
-                    this.isExemptItem = true;
+        try {
+            // change to your directory: pwd + file.txt and paste 
+            String miniDBLocation = "/Users/aurelianoyepez/Desktop/salesTaxThoughtWords/db/nonExempt.txt";
+            FileInputStream fd = new FileInputStream(miniDBLocation);
+            Scanner fileScanner = new Scanner(fd); 
+            
+            // o(n**2) doing these loops maybe improve ? 
+            // if input is short best case is linear 
+            while (fileScanner.hasNextLine()) {
+                String exemptItems = fileScanner.nextLine(); 
+                exemptItems = exemptItems.replaceAll("^\\s+ \\s+$", ""); // replace whitespace 
+                for (int i = 0; i < importantWordsInString.length; i++) {
+                    if (importantWordsInString[i] == exemptItems) { 
+                        return true;
+                    } 
                 }
             }
+            return false; 
+            fileScanner.close(); 
         }
-
-        fileScanner.close(); 
-        // not exempt, meaning this item will get taxed 
-        this.isExemptItem = false; 
+        catch (FileNotFoundException fnfe) {
+            System.out.println("File was not found");
+        }
     }
 
     /* Returns the array without common article word such as "of, a, the, etc"
     * This is neccesary to minimize calls to the text file and reducing complexity. */
-    public ArrayList<String> stripInformation(String itemName) {
-        ArrayList<String> splitWords = itemName.split(" "); 
-        ArrayList<String> conciseWords = {}; 
+    public String[] stripInformation(String itemName) {
+        String[] splitWords = itemName.split(" "); 
+        Set<String> conciseWords = new HashSet<>();
         // if the word contains the ignore words do not add 
-        for (String s : splitWords) {
-             if (!Arrays.asList(this.ignoreWords).contains(s)) {
-                conciseWords.add(s); 
-             }
+        String current; 
+        for (int j = 0; j < splitWords.length; j++) {
+            current = splitWords[j].replaceAll("^\\s+ \\s+$", ""); // remove whitespace from word 
+            if (current == "at" || current == "of" || current == "the" || current == "an") {
+                continue;
+            }
+            else {
+                conciseWords.add(splitWords[j]);
+                //System.out.println(splitWords[j]);
+            }
         }
-        return null;
+        int count = 0;
+        String[] conciseWordsToStringList = new String[conciseWords.size()];
+        for (String s : conciseWords) {
+            //System.out.println(s);
+            if (s == "at" || s == "of" || s == "the" || s == "an") {
+                count++; 
+                continue;
+            }
+            else {
+            conciseWordsToStringList[count] = s;  
+            count++; 
+            }
+        }
+        // make sure we do not miss any elts 
+        assert(conciseWords.size() == conciseWordsToStringList.length);
+        return conciseWordsToStringList;
     }
+
 
     /* Calls isExempt and isImport to return critical
     *  information on the obect being parsed.  */
-    public void getInfo() {
-        ArrayList<String> splitWords = itemName.split(" ");
+    public void getInfo(String itemName) {
+        String[] splitWords = itemName.split(" ");
         // first one should be the "imported" if not it is false 
-        String firstWordInSplit = splitWords.get(0);
-        isImported(firstWordInSplit));
+        String firstWordInSplit = splitWords[0];
+        isImport(firstWordInSplit);
         // join array list of strings with spaces
         // then strip information
         String holder = ""; // concat to here 
-        for (int i = 0; i < splitWords.size(); i++) {
-            holder += (splitWords.get(0) + " ");
+        // this might error 
+        for (int i = 0; i < splitWords.length; i++) {
+            holder += (splitWords[i] + " ");
         }
-        ArrayList<String> importantWordsInString = stripInformation(holder);
-        isExempt(importantWordsInString);  
-    
+        String[] importantWordsInString = stripInformation(holder);
+        boolean isExempt = isExempt(importantWordsInString);  
     }
 
+
     /* set name of itemName */
-    public setName(String name) {
+    public void setName(String name) {
         this.itemName = name;
     }
 
+    /* Array List of words to ignore */
+    public void setUpIgnoreWords() {
+        this.ignoreWords.add("a");
+        this.ignoreWords.add("an");
+        this.ignoreWords.add("the");
+        this.ignoreWords.add("at"); 
+        this.ignoreWords.add("of");
+    }
 
     /* get item name */
     public String getName() {
@@ -118,7 +162,7 @@ public class Parse {
      private boolean isExemptItem; 
 
      /* List of words to ignore */
-     private ArrayList<String> ignoreWords = {"a","at","the","of","an"}; 
-
+     private ArrayList<String> ignoreWords = new ArrayList<String>(); 
 
 }
+

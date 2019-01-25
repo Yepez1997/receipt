@@ -1,22 +1,23 @@
+
+/* Main.java : Parses lines, and creates proper objects  */
+import java.util.ArrayList;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-
 import javax.naming.directory.SearchResult;
 
-/* Driver Class: Parses lines, and creates proper objects  */
+/* Main */
 public class Main {
 
     public static void main(String[] args) {
 
-    // TODO: READ INPUT 
     // run main + /path to directory 
      try {
          // try to open the file 
         FileInputStream fd = new FileInputStream(args[0]);
         Scanner fileScanner = new Scanner(fd); 
-        System.out.println("File has been opened");
-
+    
         // open and get every line 
         Integer quantity = 0; 
         String itemName = "";
@@ -25,19 +26,19 @@ public class Main {
         while(fileScanner.hasNextLine()) {
             String oneLine = fileScanner.nextLine(); 
             // now we want to split string into three parts 
-            ArrayList<String> columns = oneLine.split(","); 
-            quantity = Integer.parseInt(columns.get(0)); 
-            itemName = colums.get(1); 
+            String[] columns = oneLine.split(","); 
+            quantity = Integer.parseInt(columns[0]); 
+            itemName = columns[1]; 
             String serializedInfo = doParse(itemName);
-            itemCost =  Double.parseDouble(colums.get(2)); 
+            itemCost =  Double.parseDouble(columns[2]); 
             System.out.println(oneLine);
             // for every line we create an object 
-            createItem(quantity, itemName,itemCost,serializedInfo); 
+            //createItem(quantity, itemName,itemCost,serializedInfo); 
         }
         fileScanner.close();
      }
      // file not found 
-     catch(FileNotFoundException fnfe) {
+     catch (FileNotFoundException fnfe) {
          System.out.println("File was not found");
      }
     }
@@ -48,13 +49,13 @@ public class Main {
     /* Gets the info needed to create the objects */
     public static String doParse(String itemName) {
         String serializedInformation = ""; 
-        getItemInfo = new Parse(); 
+        Parse getItemInfo = new Parse(); 
         // just have to set name 
+        getItemInfo.setUpIgnoreWords();
         getItemInfo.setName(itemName);
         // get info does all the work and sets the proper 
         // instances in the class
-        getItemInfo.getInfo(); 
-
+        getItemInfo.getInfo(itemName); 
         // getInfo about imported, exempt 
         Boolean imported = getItemInfo.getImported(); 
         if (imported) {
@@ -63,17 +64,21 @@ public class Main {
         else {
             serializedInformation += "0";
         }
-        Boolean taxExempty = getItemInfo.getIsExemptedItem();
-        if (taxExempty) {
+        Boolean taxExempt = getItemInfo.getIsExemptedItem();
+        System.out.println(taxExempt);
+        if (taxExempt) {
             serializedInformation += "1"; 
         }
         else { 
             serializedInformation += "0";
         }
         // must assert, we do not want to classiy the item wrong
-        assert(len(serializedInformation) == 2); 
+        assert(serializedInformation.length() == 2); 
+        System.out.println(serializedInformation);
         return serializedInformation;
     }
+
+    // TODO: CREATE ABSTRACT CLASSES 
 
     /* Important to note what the serialized information does: 
     *  Seriazlized Info is a size of len 2.  
@@ -81,6 +86,9 @@ public class Main {
     *  The second index is if the item is exempt: exempt ? 1 : 0
     *  Serialized info is critical to creating the right class
     * */    
+
+
+    /*
     public static void createItem(Integer quantity, String name, Double cost, String serializedInfo) {
         // here we want to create the classes 
         // info needed :  name, is imported, is exempt, quantity, cost 
@@ -89,6 +97,9 @@ public class Main {
         // now we want to create abstract classes; s
 
     }
+
+
+    */
 
 
 }
