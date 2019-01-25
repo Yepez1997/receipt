@@ -18,5 +18,5 @@ class ParseTest {
     public void testIsExempt() {
 
     }
-    
+
  }

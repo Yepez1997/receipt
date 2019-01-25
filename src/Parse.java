@@ -30,10 +30,25 @@ public class Parse {
 
 
     /* Returns true if the item is tax exempt. */
-    public boolean isExempt(ArrayList<String> importantWordsInString) {
+    public void isExempt(ArrayList<String> importantWordsInString) {
         // want to open file and see if the elements are presnet
-    
-        return false; 
+        FileInputStream fd = new FileInputStream();
+        Scanner fileScanner = new Scanner(fd); 
+        
+        // o(n**2) doing these loops maybe improve ? 
+        // if input is short best case is linear 
+        while (fileScanner.hasNextLine()) {
+            String exemptItems = fileScanner.nextLine(); 
+            for (int i = 0; i < importantWordsInString.size(); i++) {
+                if (importantWordsInString == exemptItems) {
+                    this.isExemptItem = true;
+                }
+            }
+        }
+
+        fileScanner.close(); 
+        // not exempt, meaning this item will get taxed 
+        this.isExemptItem = false; 
     }
 
     /* Returns the array without common article word such as "of, a, the, etc"
@@ -56,9 +71,7 @@ public class Parse {
         ArrayList<String> splitWords = itemName.split(" ");
         // first one should be the "imported" if not it is false 
         String firstWordInSplit = splitWords.get(0);
-        if (isImported(firstWordInSplit)) {
-            this.isImported = true;
-        } 
+        isImported(firstWordInSplit));
         // join array list of strings with spaces
         // then strip information
         String holder = ""; // concat to here 
@@ -66,13 +79,8 @@ public class Parse {
             holder += (splitWords.get(0) + " ");
         }
         ArrayList<String> importantWordsInString = stripInformation(holder);
-        boolean isItemTaxExempt = isExempt(importantWordsInString);  
-        if (isItemTaxExempt) {
-            this.isExemptItem = true;
-        } 
-        else {
-            this.isExemptItem = false; 
-        }
+        isExempt(importantWordsInString);  
+    
     }
 
     /* set name of itemName */
@@ -93,7 +101,7 @@ public class Parse {
 
     /* get isExemptedItem boolean */
       public boolean getIsExemptedItem() {
-        return isImported;
+        return isExemptItem;
     }
 
      // ------------------------------------------------------------ // 
