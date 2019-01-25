@@ -37,7 +37,6 @@ public class Parse {
         return false;
     }   
 
-
     /* Returns true if the item is tax exempt. */
     public boolean isExempt(String[] importantWordsInString) {
         try {
@@ -96,9 +95,7 @@ public class Parse {
         }
         
         return conciseWordsToStringList;
-
     }
-
 
     /* Calls isExempt and isImport to return critical
     *  information on the obect being parsed.  */
@@ -108,15 +105,16 @@ public class Parse {
         return importantWordsInString; 
     }
 
-    public boolean getImported2(String[] importantWords){
-        boolean tf = isImport(importantWords);
-        return tf;
+    /* Returns true if the item is imported */
+    public boolean getImported(String[] importantWords){
+        boolean imported = isImport(importantWords);
+        return imported;
     }
 
+    /* Returns true if the item is exempt */
     public boolean getExempt(String[] importantWords) {
-        boolean tf = isExempt(importantWords);
-        System.out.println(tf);
-        return tf; 
+        boolean exempt = isExempt(importantWords);
+        return exempt; 
     }
 
     /* set name of itemName */
@@ -138,27 +136,15 @@ public class Parse {
         return itemName;
     }
 
-    /* get imported boolean */
-    public boolean getImported() {
-        return isImported;
-    }
+    /* The item name to be parsed. */
+    private String itemName; 
 
-    /* get isExemptedItem boolean */
-      public boolean getIsExemptedItem() {
-        return isExemptItem;
-    }
-
-     /* The item name to be parsed. */
-     private String itemName; 
-
-     /* Determaines if the item will be imported or not. */
-     private boolean isImported; 
-
-     /* Determaines if the item will be exempt or not */
-     private boolean isExemptItem; 
-
-     /* List of words to ignore */
-     private ArrayList<String> ignoreWords = new ArrayList<String>(); 
+    /* List of words to ignore */
+    private ArrayList<String> ignoreWords = new ArrayList<String>(); 
 
 }
+
+
+
+
 

@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
 
      try {
-         // try to open the file 
+
         FileInputStream fd = new FileInputStream(args[0]);
         Scanner fileScanner = new Scanner(fd); 
     
@@ -23,11 +23,10 @@ public class Main {
 
         while(fileScanner.hasNextLine()) {
             String oneLine = fileScanner.nextLine(); 
-            // now we want to split string into three parts 
             String[] columns = oneLine.split(","); 
             quantity = Integer.parseInt(columns[0]); 
             itemName = columns[1]; 
-            String serializedInfo = doParse(itemName);
+            String serializedInfo = parseString(itemName);
             itemCost = Double.parseDouble(columns[2]); 
             System.out.println(oneLine);
         }
@@ -36,24 +35,25 @@ public class Main {
      catch (FileNotFoundException fnfe) {
          System.out.println("File was not found");
      }
+     
     }
 
     /* Gets the info needed to create the objects */
-    public static String doParse(String itemName) {
+    public static String parseString(String itemName) {
         String serializedInformation = ""; 
-        Parse getItemInfo = new Parse(); 
-        getItemInfo.setUpIgnoreWords();
-        getItemInfo.setName(itemName);
-        String[] nameInfo = getItemInfo.getInfo(itemName); 
-        Boolean imported = getItemInfo.getImported2(nameInfo); 
-        if (imported) {
+        Parse parseItemName = new Parse(); 
+        parseItemName.setUpIgnoreWords();
+        parseItemName.setName(itemName);
+        String[] nameList = parseItemName.getInfo(itemName); 
+        Boolean isImported = parseItemName.getImported(nameList); 
+        if (isImported) {
             serializedInformation += "1";
         }
         else {
             serializedInformation += "0";
         }
-        Boolean taxExempt = getItemInfo.getExempt(nameInfo); 
-        if (taxExempt) {
+        Boolean isTaxExempt = parseItemName.getExempt(nameList); 
+        if (isTaxExempt) {
             serializedInformation += "1"; 
         }
         else { 
