@@ -12,13 +12,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-    // run main + /path to directory 
      try {
          // try to open the file 
         FileInputStream fd = new FileInputStream(args[0]);
         Scanner fileScanner = new Scanner(fd); 
     
-        // open and get every line 
         Integer quantity; 
         String itemName;
         Double itemCost;
@@ -55,14 +53,12 @@ public class Main {
             serializedInformation += "0";
         }
         Boolean taxExempt = getItemInfo.getExempt(nameInfo); 
-        //System.out.println(taxExempt);
         if (taxExempt) {
             serializedInformation += "1"; 
         }
         else { 
             serializedInformation += "0";
         }
-        // must assert, we do not want to classiy the item wrong
         assert(serializedInformation.length() == 2); 
         System.out.println(serializedInformation);
         return serializedInformation;
@@ -73,16 +69,10 @@ public class Main {
     *  Seriazlized Info is a size of len 2.  
     *  The first index represents if the item is imported: imported ? 1 : 0 
     *  The second index is if the item is exempt: exempt ? 1 : 0
-    *  Serialized info is critical to creating the right class
-    * */    
-
-
+    *  Serialized info is critical to creating the right class. */    
     public static void createItem(Integer quantity, String name, Double cost, String serializedInfo) {
-        // here we want to create the classes 
-        // info needed :  name, is imported, is exempt, quantity, cost 
-        Integer isImported = String.parseInt(serializedInfo.charAt(0));
-        Integer isExempt = String.parseInt(serializedInfo.charAt(1));
-        // now we want to create abstract classes; s
+        Character isImported = serializedInfo.charAt(0);
+        Character isExempt = serializedInfo.charAt(1);
 
     }
 
