@@ -57,7 +57,7 @@ public class Main {
         // instances in the class
         String[] nameInfo = getItemInfo.getInfo(itemName); 
         // getInfo about imported, exempt 
-        Boolean imported = getItemInfo.getImported(); 
+        Boolean imported = getItemInfo.getImported2(nameInfo); 
         if (imported) {
             serializedInformation += "1";
         }

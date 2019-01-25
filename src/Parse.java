@@ -27,16 +27,18 @@ import java.io.FileInputStream;
 public class Parse {
 
     /* Returns true if the item is imported. */
-    public boolean isImport(String firstWordInSplit) {
-        if (firstWordInSplit == "imported") {
-            this.isImported = true;
-            return true; 
+    // want to pass in important string 
+    public boolean isImport(String[] importantWords) {
+        
+        String search = "imported";
+        for (String str : importantWords) {
+            if(str.trim().contains(search)) {                    System.out.println("here");
+                return true;
+            }
         }
-        else {
-            this.isImported = false; 
-            return false; 
-        }
-    }
+        return false;
+    }   
+
 
 
     /* Returns true if the item is tax exempt. */
@@ -55,7 +57,6 @@ public class Parse {
                 String exemptItems = fileScanner.nextLine(); 
                 exemptItems = exemptItems.replaceAll("^\\s+ \\s+$", ""); // replace whitespace 
                 //System.out.println(exemptItems);
-                // TODO:
                 // insert to array and check that way 
                 dbItems.add(exemptItems);    
             }
@@ -119,8 +120,7 @@ public class Parse {
     public String[] getInfo(String itemName) {
         String[] splitWords = itemName.split(" ");
         // first one should be the "imported" if not it is false 
-        String firstWordInSplit = splitWords[0];
-        isImport(firstWordInSplit);
+        //String firstWordInSplit = splitWords[0];
         // join array list of strings with spaces
         // then strip information
         String holder = ""; // concat to here 
@@ -131,6 +131,11 @@ public class Parse {
         String[] importantWordsInString = stripInformation(holder);
         //boolean isExempt = isExempt(importantWordsInString); 
         return importantWordsInString; 
+    }
+
+    public boolean getImported2(String[] importantWords){
+        boolean tf = isImport(importantWords);
+        return tf;
     }
 
     public boolean getExempt(String[] importantWords) {
