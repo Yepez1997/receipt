@@ -8,8 +8,9 @@ class TaxedItem extends Item {
 
     /* Calculate the difference for the total tax and original price. */
     @Override
-    void calculateTaxDifference() {
-        super.itemCostDifference = calculateTotalTax() - super.itemCost;
+    Double calculateTaxDifference() {
+        super.itemCostDifference = this.totalCost - super.itemCost;
+        return super.itemCostDifference;
     }
 
 
@@ -18,11 +19,13 @@ class TaxedItem extends Item {
     @Override
     Double calculateTotalTax() {
         if (super.imported == '1') {
-            this.totalCost += (super.itemCost * (1 + salesTax)) * (importedTax);
+            this.totalCost += (super.itemCost * (1 + salesTax)) * (1 + importedTax);
+            return this.totalCost;
+        }  
+        else {
+            this.totalCost += (super.itemCost * (1 + salesTax)); 
             return this.totalCost;
         }
-        this.totalCost += (super.itemCost * (1 + salesTax)); 
-        return this.totalCost;
     }
 
     /* Total taxes + cost */

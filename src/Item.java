@@ -13,7 +13,7 @@ abstract class Item {
 
     /* abstract methods */
     abstract Double calculateTotalTax();
-    abstract void calculateTaxDifference(); 
+    abstract Double calculateTaxDifference(); 
 
 
     /* Get cost */

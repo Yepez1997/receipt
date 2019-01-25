@@ -89,7 +89,6 @@ public class Parse {
         int count = 0;
         String[] conciseWordsToStringList = new String[conciseWords.size()];
         for (String s : conciseWords) {
-            System.out.println(s);
             conciseWordsToStringList[count] = s;  
             count++; 
         }

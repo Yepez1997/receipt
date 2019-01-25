@@ -8,8 +8,9 @@ class ExemptItem extends Item {
 
     /* Calculate the difference for the total tax and original price. */
     @Override
-    void calculateTaxDifference() {
-        super.itemCostDifference = calculateTotalTax() - super.itemCost;
+    Double calculateTaxDifference() {
+        super.itemCostDifference = this.totalCost - super.itemCost;
+        return super.itemCostDifference;
     }
 
     /* Calculate the total tax, includes sales and import 
@@ -20,7 +21,10 @@ class ExemptItem extends Item {
             this.totalCost += super.itemCost * (1 + importedTax);
             return this.totalCost;
         }
-        return super.itemCost;
+        else {
+            this.totalCost = super.itemCost;
+            return this.totalCost;
+        }
     }
 
     /* Total taxes + cost */

@@ -30,6 +30,7 @@ public class Main {
             itemCost = Double.parseDouble(columns[2]); 
             createItem(quantity, itemName, itemCost, serializedInfo);
             System.out.println(oneLine);
+            System.out.println("#####################");
         }
         fileScanner.close();
      }
@@ -61,7 +62,6 @@ public class Main {
             serializedInformation += "0";
         }
         assert(serializedInformation.length() == 2); 
-        System.out.println(serializedInformation);
         return serializedInformation;
     }
 
@@ -74,20 +74,26 @@ public class Main {
     public static void createItem(Integer quantity, String name, Double cost, String serializedInfo) {
         //Character isImported = serializedInfo.charAt(0);
         Character isExempt = serializedInfo.charAt(1);
-        
+        Double totalCost = 0.0; 
         // create exempt class
+        // want to return cost 
         if (isExempt == '1') {
-            Item taxedItem = new ExemptItem(quantity,name,cost,serializedInfo);
-            System.out.println("Object created exempt");
+            Item exemptItem = new ExemptItem(quantity,name,cost,serializedInfo);
+            //System.out.println(exemptItem.calculateTotalTax());
+            totalCost += exemptItem.calculateTotalTax();
+            System.out.println(exemptItem.calculateTaxDifference());
 
         }
         // create a taxed class 
         else {
             Item taxedItem = new TaxedItem(quantity,name,cost,serializedInfo); 
-            System.out.println("Object created taxed");
-        }
+            //System.out.println(taxedItem.calculateTotalTax());
+            totalCost += taxedItem.calculateTotalTax();
+            System.out.println(taxedItem.calculateTaxDifference());
 
+        }
     }
+
 
 
 }
