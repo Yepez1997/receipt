@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import javax.naming.directory.SearchResult;
+import java.util.HashMap;
 
 /* Main */
 public class Main {
@@ -21,6 +22,8 @@ public class Main {
         String itemName;
         Double itemCost;
 
+        Receipt receipt = new Receipt();
+        
         while(fileScanner.hasNextLine()) {
             String oneLine = fileScanner.nextLine(); 
             String[] columns = oneLine.split(","); 
@@ -44,7 +47,6 @@ public class Main {
     public static String parseString(String itemName) {
         String serializedInformation = ""; 
         Parse parseItemName = new Parse(); 
-        parseItemName.setUpIgnoreWords();
         parseItemName.setName(itemName);
         String[] nameList = parseItemName.getInfo(itemName); 
         Boolean isImported = parseItemName.getImported(nameList); 
@@ -75,8 +77,6 @@ public class Main {
         //Character isImported = serializedInfo.charAt(0);
         Character isExempt = serializedInfo.charAt(1);
         Double totalCost = 0.0; 
-        // create exempt class
-        // want to return cost 
         if (isExempt == '1') {
             Item exemptItem = new ExemptItem(quantity,name,cost,serializedInfo);
             //System.out.println(exemptItem.calculateTotalTax());
@@ -93,6 +93,10 @@ public class Main {
 
         }
     }
+
+
+    //private Double totalSalesTax; 
+    //private HashMap<String, Double> nameValuePair; 
 
 
 

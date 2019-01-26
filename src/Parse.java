@@ -76,16 +76,27 @@ public class Parse {
         String[] splitWords = itemName.split(" "); 
         Set<String> conciseWords = new HashSet<>();
 
-        for (int i = 0; i < this.ignoreWords.size(); i++) {
-            String search = this.ignoreWords.get(i);
-            for (String str : splitWords){ 
-                if(!str.trim().contains(search)) {      
-                    conciseWords.add(str);
-                }
+        for (String str : splitWords){ 
+            if (str.equals("at")) {
+                continue;
+            }
+            else if (str.equals("an")) {
+                continue;
+            }
+            else if (str.equals("of")) {
+                continue;
+            }
+            else if (str.equals("the")) {
+                continue;
+            }
+            else if (str.equals("a")) {
+                continue;
+            }
+            else {
+                conciseWords.add(str);
             }
         }
 
-        // change back to regular list 
         int count = 0;
         String[] conciseWordsToStringList = new String[conciseWords.size()];
         for (String s : conciseWords) {
@@ -119,15 +130,6 @@ public class Parse {
     /* set name of itemName */
     public void setName(String name) {
         this.itemName = name;
-    }
-
-    /* Array List of words to ignore */
-    public void setUpIgnoreWords() {
-        this.ignoreWords.add("a");
-        this.ignoreWords.add("an");
-        this.ignoreWords.add("the");
-        this.ignoreWords.add("at"); 
-        this.ignoreWords.add("of");
     }
 
     /* get item name */
