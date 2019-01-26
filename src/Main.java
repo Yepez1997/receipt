@@ -35,7 +35,8 @@ public class Main {
         }
 
         fileScanner.close();
-        //System.out.println(receipt.getTotalSalesTax());
+        Double checkCost =  receipt.getTotalSalesTax();
+        System.out.println(checkCost);
      }
      catch (FileNotFoundException fnfe) {
          System.out.println("File was not found");
@@ -81,10 +82,6 @@ public class Main {
             Item exemptItem = new ExemptItem(quantity,name,cost,serializedInfo);
             taxTotal = exemptItem.calculateTotalTax(); 
             taxDelta = exemptItem.calculateTaxDifference();
-            System.out.println("Tax Delta:");
-            System.out.println(taxDelta);
-            System.out.println("Tax Total:");
-            System.out.println(taxTotal);
             r.addTaxDifferences(taxDelta);
             r.addNamePricePair(name, taxTotal);
         }
@@ -92,10 +89,6 @@ public class Main {
             Item taxedItem = new TaxedItem(quantity,name,cost,serializedInfo); 
             taxTotal = taxedItem.calculateTotalTax(); 
             taxDelta = taxedItem.calculateTaxDifference();
-            System.out.println("Tax Delta:");
-            System.out.println(taxDelta);
-            System.out.println("Tax Total:");
-            System.out.println(taxTotal);
             r.addTaxDifferences(taxDelta);
             r.addNamePricePair(name,taxTotal);
 
