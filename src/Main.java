@@ -23,7 +23,7 @@ public class Main {
         Double itemCost;
 
         Receipt receipt = new Receipt();
-        
+
         while(fileScanner.hasNextLine()) {
             String oneLine = fileScanner.nextLine(); 
             String[] columns = oneLine.split(","); 
@@ -31,7 +31,7 @@ public class Main {
             itemName = columns[1]; 
             String serializedInfo = parseString(itemName);
             itemCost = Double.parseDouble(columns[2]); 
-            createItem(quantity, itemName, itemCost, serializedInfo);
+            createItem(quantity, itemName, itemCost, serializedInfo, receipt);
             System.out.println(oneLine);
             System.out.println("#####################");
         }
@@ -73,31 +73,26 @@ public class Main {
     *  The first index represents if the item is imported: imported ? 1 : 0 
     *  The second index is if the item is exempt: exempt ? 1 : 0
     *  Serialized info is critical to creating the right class. */    
-    public static void createItem(Integer quantity, String name, Double cost, String serializedInfo) {
+    public static void createItem(Integer quantity, String name, Double cost, String serializedInfo, Receipt r) {
         //Character isImported = serializedInfo.charAt(0);
         Character isExempt = serializedInfo.charAt(1);
-        Double totalCost = 0.0; 
         if (isExempt == '1') {
             Item exemptItem = new ExemptItem(quantity,name,cost,serializedInfo);
-            //System.out.println(exemptItem.calculateTotalTax());
-            totalCost += exemptItem.calculateTotalTax();
-            System.out.println(exemptItem.calculateTaxDifference());
-
+            //System.out.println(exemptItem.calculateTaxDifference());
+            r.addTaxDifferences(exemptItem.calculateTaxDifference());
+            System.out.println(exemptItem.calculateTotalTax());
+            r.addNamePricePair(name, exemptItem.calculateTotalTax());
         }
-        // create a taxed class 
         else {
             Item taxedItem = new TaxedItem(quantity,name,cost,serializedInfo); 
-            //System.out.println(taxedItem.calculateTotalTax());
-            totalCost += taxedItem.calculateTotalTax();
-            System.out.println(taxedItem.calculateTaxDifference());
+           // System.out.println(taxedItem.calculateTaxDifference());
+            r.addTaxDifferences(taxedItem.calculateTaxDifference());
+            System.out.println(taxedItem.calculateTotalTax());
+            r.addNamePricePair(name,taxedItem.calculateTotalTax());
 
         }
     }
 
-
-    //private Double totalSalesTax; 
-    //private HashMap<String, Double> nameValuePair; 
-
-
-
 }
+
+

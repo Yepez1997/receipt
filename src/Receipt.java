@@ -29,6 +29,8 @@ public class Receipt {
         return "";
     }
 
+    /* Obtains the total sales tax by adding the tax differences in the 
+     * array list  */
     public Double getTotalSalesTax() {
         Double total = 0.0; 
         for (int i = 0; i < this.taxDifferences.size(); i++) {
@@ -39,14 +41,15 @@ public class Receipt {
 
 
     // dont take the method name too seriously :)
+    // or can write to a file 
     public void theFinallyIGetToPrintTheOutputMethod() {
         // print everything from hashmap
     }
 
-
-
-    
+    /* ArrayList of tax differences : items that consist of:
+     * TotalCost (After taxes) - Original Cost  */
     private ArrayList<Double> taxDifferences; 
+    /* Hashmap consisting of itemName, itemCost */
     private HashMap<String, Double> namePricePair; 
 
 }
