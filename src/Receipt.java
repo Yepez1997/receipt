@@ -21,6 +21,8 @@ public class Receipt {
     /* Add to the Array of Tax Differences, A difference is the 
     Difference between the total cost and original cost.  */
     public void addTaxDifferences(Double taxDifferences){
+        System.out.println("Tax Differences");
+        System.out.println(taxDifferences);
         this.taxDifferences.add(taxDifferences);
     }
     
@@ -34,7 +36,7 @@ public class Receipt {
     public Double getTotalSalesTax() {
         Double total = 0.0; 
         for (int i = 0; i < this.taxDifferences.size(); i++) {
-            total += this.taxDifferences.get(i);
+            //System.out.println(this.taxDifferences.get(i));
         }
         return total; 
     }

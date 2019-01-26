@@ -32,10 +32,10 @@ public class Main {
             String serializedInfo = parseString(itemName);
             itemCost = Double.parseDouble(columns[2]); 
             createItem(quantity, itemName, itemCost, serializedInfo, receipt);
-            System.out.println(oneLine);
-            System.out.println("#####################");
         }
+
         fileScanner.close();
+        //System.out.println(receipt.getTotalSalesTax());
      }
      catch (FileNotFoundException fnfe) {
          System.out.println("File was not found");
@@ -74,21 +74,30 @@ public class Main {
     *  The second index is if the item is exempt: exempt ? 1 : 0
     *  Serialized info is critical to creating the right class. */    
     public static void createItem(Integer quantity, String name, Double cost, String serializedInfo, Receipt r) {
-        //Character isImported = serializedInfo.charAt(0);
         Character isExempt = serializedInfo.charAt(1);
+        Double taxDelta = 0.0;
+        Double taxTotal = 0.0; 
         if (isExempt == '1') {
             Item exemptItem = new ExemptItem(quantity,name,cost,serializedInfo);
-            //System.out.println(exemptItem.calculateTaxDifference());
-            r.addTaxDifferences(exemptItem.calculateTaxDifference());
-            System.out.println(exemptItem.calculateTotalTax());
-            r.addNamePricePair(name, exemptItem.calculateTotalTax());
+            taxTotal = exemptItem.calculateTotalTax(); 
+            taxDelta = exemptItem.calculateTaxDifference();
+            System.out.println("Tax Delta:");
+            System.out.println(taxDelta);
+            System.out.println("Tax Total:");
+            System.out.println(taxTotal);
+            r.addTaxDifferences(taxDelta);
+            r.addNamePricePair(name, taxTotal);
         }
         else {
             Item taxedItem = new TaxedItem(quantity,name,cost,serializedInfo); 
-           // System.out.println(taxedItem.calculateTaxDifference());
-            r.addTaxDifferences(taxedItem.calculateTaxDifference());
-            System.out.println(taxedItem.calculateTotalTax());
-            r.addNamePricePair(name,taxedItem.calculateTotalTax());
+            taxTotal = taxedItem.calculateTotalTax(); 
+            taxDelta = taxedItem.calculateTaxDifference();
+            System.out.println("Tax Delta:");
+            System.out.println(taxDelta);
+            System.out.println("Tax Total:");
+            System.out.println(taxTotal);
+            r.addTaxDifferences(taxDelta);
+            r.addNamePricePair(name,taxTotal);
 
         }
     }
