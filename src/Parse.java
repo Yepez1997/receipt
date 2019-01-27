@@ -1,3 +1,4 @@
+/* @author Aureliano Yepez  */
 /* Parse.java
 *  Parses the string read from input to determaine
 *  the type of taxed item or exempt item that is created. In other words,

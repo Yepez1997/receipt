@@ -23,30 +23,27 @@ all items execpt books, food, and medical products.
         - TaxedItem.java  <- everything else not in ExemptItem.java, C
                           <- can be imported and thus apply 5% more tax 
 - db  
-    - input.txt <- input to provide to test 
     - nonExempt.txt <- column of names of non exempt items, food, medical, books 
-- tests
-    - ReceiptTest.java
-    - ExemptItemTest.java
-    - TaxedItemTest.java 
+
 
 /** Data Structures **/
 The data structure that will be best to use is a HashMap.
 Within the HashMap, it is essential that we have the name
 of the the item and price. The HashMap will primarily be used in the 
-ExemptItem.java, and TaxedItem.java, files. In Receipt.java, we want to 
-maintain an ArrayList of HashMaps for each type of item. 
+Receipt.java files. In Receipt.java, we want to 
+maintain an ArrayList of TaxDifferences, and a HashMap to maintain the
+original name, and after taxes price of the item. 
 
-Basically, two ArrayLists that maintain information about each item. For the type of Items, that require tax, it 
-may be useful to keep more information stored such as the amount taxed after the purchase. 
-It may be very helpful to add the quantity within the item. Another variable to consider is to add a boolean that 
-asserts whether the item is imported or not based on the Parsing in Parse.java
+Originally, the name of the string passed into the hashmap is not filtered
+or tailored the to output, so it is essential that after the information is added
+in their proper objects, there must be some preprocessing before the output is printed.
+
 
 /** OOP **/
 This problem could be done without OOP, but the code would be a mess.
 Given that code should be clean, and concise, OOP is the best approach for 
 this scenerio. Using an abstract classes, implemting an abstract tax method will
-be key for distinguising the types. Given that the information passed into a class is:
+be key for distinguising the types of Items: Exempt and Taxed. Given that the information passed into a class is:
 quantity, name of item, cost, constructors would be neccesary. Interfaces do not allow constructors,
 thus polymorphism and abstract classes will be used. 
 
@@ -74,3 +71,24 @@ ex.
 ... , ... , ...
 1 , poke, 14.29
 
+
+/* Note */
+
+Some outputs are off by a couple cents and I realized the potential 
+underlying issue after outputing the information. The main issue is the 
+multiplying the quantity, an Integer, by the cost, a Double, causes small 
+rounding to happen. Other than that, the Receipt works perfectly. I really 
+tried my best the make the code as clean and elegant as possible. I am always
+open to feedback. I received the challenge on Thursday afternoon, and Finished Saturday
+afternoon.
+
+Also I was planning to do the first problem, but I knew I would have enjoyed the second 
+one. For the first one, setting up a Graph Data Structure as ArrayList representation and then 
+running Dijkstra's Algorithm on a given source would have been the approach. Of course,
+assuming all nodes are positive, since Dijkstra's does not allow negative weights or neg. cycles,
+and in that case we'd approach the problem using the BellManFord Algorithm.  
+
+/* How to Run */
+Parse.java - Change the line that reads the location of the mini-database of words
+Main.java  1/ Compile all files -> javac *.java 
+           2/ Run -> java Main [path to input files]

@@ -1,3 +1,4 @@
+/* @author Aureliano Yepez  */
 /* Main.java : Parses lines, and creates proper objects. */
 
 import java.io.FileInputStream;

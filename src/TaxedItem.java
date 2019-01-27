@@ -1,4 +1,7 @@
+/* @author Aureliano Yepez  */
 /* TaxedItem is an Item with Tax  */
+
+/* TaxedItem. */
 class TaxedItem extends Item {
 
     /* Constructor. */

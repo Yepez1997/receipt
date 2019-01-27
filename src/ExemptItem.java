@@ -1,5 +1,5 @@
+/* @author Aureliano Yepez  */
 /* ExemptItem.java: items that are not taxed  */
-
 
 /* ExemptItem. */
 class ExemptItem extends Item {

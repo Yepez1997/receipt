@@ -1,3 +1,4 @@
+/* @author Aureliano Yepez  */
 /* Item.java is an abstract class to implement TaxItem.java and ExemptItem.java */
 
 /* Item. */

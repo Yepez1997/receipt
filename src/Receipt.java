@@ -1,3 +1,4 @@
+/* @author Aureliano Yepez  */
 /* Receipt.java: contains all informtaion about the items */
 
 import java.util.ArrayList;
@@ -25,7 +26,6 @@ public class Receipt {
         this.taxDifferences.add(taxDifferences);
     }
     
-
     /* Filters portions of the itemName string to print in the expected output format */
     public String prettyPrintName(String name) {
         String[] splitString = name.split(" "); 
