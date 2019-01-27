@@ -39,12 +39,11 @@ public class Main {
         }
      catch (FileNotFoundException fnfe) {
          System.out.println("File was not found");
-
         }
     }
 
     /* Parses the item name string in order to obtain inforamtion about: 
-     * whether an item is imported and whether an item is exempt
+     * whether an item is imported and whether an item is exempt.
      */
     public static String parseString(String itemName) {
         String serializedInformation = ""; 
@@ -98,3 +97,4 @@ public class Main {
         }
     }
 }
+

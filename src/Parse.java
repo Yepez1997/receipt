@@ -142,3 +142,4 @@ public class Parse {
     /* List of words to ignore. */
     private ArrayList<String> ignoreWords = new ArrayList<String>(); 
 }
+

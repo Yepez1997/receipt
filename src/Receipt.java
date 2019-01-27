@@ -91,3 +91,4 @@ public class Receipt {
     /* Quantities for each item  */
     private ArrayList<Integer> quants; 
 }
+

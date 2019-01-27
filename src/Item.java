@@ -63,3 +63,4 @@ abstract class Item {
     /* Import Tax. */
     protected Double importedTax = 0.05;
 }
+

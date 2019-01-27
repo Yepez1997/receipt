@@ -41,3 +41,4 @@ class ExemptItem extends Item {
     private Double totalCost; 
     
 }
+
