@@ -1,76 +1,77 @@
-
-/* Main.java : Parses lines, and creates proper objects  */
-import java.util.ArrayList;
+/* Main.java : Parses lines, and creates proper objects. */
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import javax.naming.directory.SearchResult;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
-/* Main */
+/* Main. */
 public class Main {
 
     public static void main(String[] args) {
 
-     try {
+        try {
+            FileInputStream fd = new FileInputStream(args[0]);
+            Scanner fileScanner = new Scanner(fd); 
+        
+            Integer quantity; 
+            String itemName;
+            Double itemCost;
 
-        FileInputStream fd = new FileInputStream(args[0]);
-        Scanner fileScanner = new Scanner(fd); 
-    
-        Integer quantity; 
-        String itemName;
-        Double itemCost;
+            Receipt receipt = new Receipt();
 
-        Receipt receipt = new Receipt();
+            while(fileScanner.hasNextLine()) {
+                String oneLine = fileScanner.nextLine(); 
+                String[] columns = oneLine.split(","); 
+                quantity = Integer.parseInt(columns[0]); 
+                itemName = columns[1]; 
+                String serializedInfo = parseString(itemName);
+                itemCost = Double.parseDouble(columns[2]); 
+                createItem(quantity, itemName, itemCost, serializedInfo, receipt);
+            }
 
-        while(fileScanner.hasNextLine()) {
-            String oneLine = fileScanner.nextLine(); 
-            String[] columns = oneLine.split(","); 
-            quantity = Integer.parseInt(columns[0]); 
-            itemName = columns[1]; 
-            String serializedInfo = parseString(itemName);
-            itemCost = Double.parseDouble(columns[2]); 
-            createItem(quantity, itemName, itemCost, serializedInfo, receipt);
+            fileScanner.close();
+            receipt.prettyPrintReceipt();
         }
-
-        fileScanner.close();
-        receipt.prettyPrintReceipty();
-        //System.out.println(checkCost);
-     }
      catch (FileNotFoundException fnfe) {
          System.out.println("File was not found");
-     }
 
+        }
     }
 
-    /* Gets the info needed to create the objects */
+    /* Parses the item name string in order to obtain inforamtion about: 
+     * whether an item is imported and whether an item is exempt
+     */
     public static String parseString(String itemName) {
         String serializedInformation = ""; 
         Parse parseItemName = new Parse(); 
         parseItemName.setName(itemName);
         String[] nameList = parseItemName.getInfo(itemName); 
         Boolean isImported = parseItemName.getImported(nameList); 
+
         if (isImported) {
             serializedInformation += "1";
-        }
-        else {
+        } else {
             serializedInformation += "0";
         }
+
         Boolean isTaxExempt = parseItemName.getExempt(nameList); 
         if (isTaxExempt) {
             serializedInformation += "1"; 
-        }
-        else { 
+        } else { 
             serializedInformation += "0";
         }
+
         assert(serializedInformation.length() == 2); 
         return serializedInformation;
     }
 
 
     /* Important to note what the serialized information does: 
-    *  Seriazlized Info is a size of len 2.  
+    *  String SeriazlizedInfo is a len 2.  
     *  The first index represents if the item is imported: imported ? 1 : 0 
     *  The second index is if the item is exempt: exempt ? 1 : 0
     *  Serialized info is critical to creating the right class. */    
@@ -78,6 +79,7 @@ public class Main {
         Character isExempt = serializedInfo.charAt(1);
         Double taxDelta = 0.0;
         Double taxTotal = 0.0; 
+        
         if (isExempt == '1') {
             Item exemptItem = new ExemptItem(quantity,name,cost,serializedInfo);
             taxTotal = exemptItem.calculateTotalTax(); 
@@ -85,18 +87,13 @@ public class Main {
             r.addTaxDifferences(taxDelta);
             r.addNamePricePair(name, taxTotal);
             r.addQuantity(quantity);
-        }
-        else {
+        } else {
             Item taxedItem = new TaxedItem(quantity,name,cost,serializedInfo); 
             taxTotal = taxedItem.calculateTotalTax(); 
             taxDelta = taxedItem.calculateTaxDifference();
             r.addTaxDifferences(taxDelta);
             r.addNamePricePair(name,taxTotal);
-            r.addQuantity(quantity);
-
+            r.addQuantity(quantity);        
         }
     }
-
 }
-
-

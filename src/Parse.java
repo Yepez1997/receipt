@@ -11,19 +11,17 @@
 */
 
 // important practice to not use .*; 
-import java.util.ArrayList;
-import java.util.Set;
-
 import javax.naming.spi.DirObjectFactory;
-
-import java.util.HashSet;
-
 import com.sun.tools.javac.code.Attribute.Array;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.FileInputStream;
 
-/* Parse */
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
+
+/* Parse. */
 public class Parse {
 
     /* Returns true if the item is imported. */
@@ -46,12 +44,12 @@ public class Parse {
             FileInputStream fd = new FileInputStream(miniDBLocation);
             Scanner fileScanner = new Scanner(fd); 
             
-
             while (fileScanner.hasNextLine()) {
                 String exemptItems = fileScanner.nextLine(); 
                 exemptItems = exemptItems.replaceAll("^\\s+ \\s+$", "");
                 dbItems.add(exemptItems);    
             }
+
             String search;
             for (int i = 0; i < dbItems.size(); i++) {
                 search = dbItems.get(i).trim(); 
@@ -61,6 +59,7 @@ public class Parse {
                     }
                 }
             }   
+
             fileScanner.close(); 
             return false; 
         }
@@ -70,8 +69,8 @@ public class Parse {
         }
     }
 
-    /* Returns the array without common article word such as "of, a, the, etc"
-    * This is neccesary to minimize calls to the text file and reducing complexity. */
+    /* Returns the String list without common article word such as "of, a, the, etc"
+    * This is neccesary to minimize calls to the text file and reducing complexity - to some extent. */
     public String[] stripInformation(String itemName) {
         String[] splitWords = itemName.split(" "); 
         Set<String> conciseWords = new HashSet<>();
@@ -97,21 +96,20 @@ public class Parse {
             }
         }
 
+        // convert back to String[]
         int count = 0;
         String[] conciseWordsToStringList = new String[conciseWords.size()];
         for (String s : conciseWords) {
             conciseWordsToStringList[count] = s;  
             count++; 
-        }
-        
+        }   
         return conciseWordsToStringList;
     }
 
-    /* Calls isExempt and isImport to return critical
-    *  information on the obect being parsed.  */
+    /* Calls isExempt and isImport in Main.java to return critical
+     * information on the object being parsed. */
     public String[] getInfo(String itemName) {
         String[] importantWordsInString = stripInformation(itemName);
-        //boolean isExempt = isExempt(importantWordsInString); 
         return importantWordsInString; 
     }
 
@@ -127,12 +125,12 @@ public class Parse {
         return exempt; 
     }
 
-    /* set name of itemName */
+    /* Set name of itemName. */
     public void setName(String name) {
         this.itemName = name;
     }
 
-    /* get item name */
+    /* Get item name. */
     public String getName() {
         return itemName;
     }
@@ -140,12 +138,6 @@ public class Parse {
     /* The item name to be parsed. */
     private String itemName; 
 
-    /* List of words to ignore */
+    /* List of words to ignore. */
     private ArrayList<String> ignoreWords = new ArrayList<String>(); 
-
 }
-
-
-
-
-

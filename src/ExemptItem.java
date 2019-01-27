@@ -1,5 +1,10 @@
+/* ExemptItem.java: items that are not taxed  */
+
+
+/* ExemptItem. */
 class ExemptItem extends Item {
 
+    /* Constructor. */
     public ExemptItem(Integer quantity, String name, Double cost, String serializedInfo) {
         super(quantity, name, cost, serializedInfo);
         this.totalCost = 0.0;
@@ -14,7 +19,7 @@ class ExemptItem extends Item {
     }
 
     /* Calculate the total tax, includes sales and import 
-     *  Both are not required. */
+     * Both are not required. */
     @Override
     Double calculateTotalTax() {
         if (super.imported == '1') {
@@ -27,15 +32,12 @@ class ExemptItem extends Item {
         }
     }
 
-    /* Total taxes + cost */
+    /* Total Taxes + Cost. */
     public Double getTotalTaxes() {
         return this.totalCost; 
     }
 
-    /* total cost */
+    /* Total Cost. */
     private Double totalCost; 
+    
 }
-
-
-
-

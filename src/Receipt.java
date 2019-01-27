@@ -1,12 +1,12 @@
+/* Receipt.java: contains all informtaion about the items */
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
-/* Receipt: contains all informtaion about the items */
-
-// want to add names, double and total tax difference, and total tax 
+/* Receipt. */
 public class Receipt {
 
+    /* Constructor. */
     public Receipt() {
         this.taxDifferences = new ArrayList<Double>();
         this.namePricePair = new HashMap<String, Double>();
@@ -19,14 +19,14 @@ public class Receipt {
         this.namePricePair.put(name, totalCost);
     }
 
-    /* Add to the Array of Tax Differences, A difference is the 
-    Difference between the total cost and original cost.  */
+    /* Add to the Array of Tax Differences.
+     * A tax difference is the between the total cost and original cost.*/
     public void addTaxDifferences(Double taxDifferences){
         this.taxDifferences.add(taxDifferences);
     }
     
 
-    /* Filters portions of the string to print the expected output format */
+    /* Filters portions of the itemName string to print in the expected output format */
     public String prettyPrintName(String name) {
         String[] splitString = name.split(" "); 
         String filteredString = ""; 
@@ -46,8 +46,7 @@ public class Receipt {
         this.quants.add(q);
     }
 
-    /* Obtains the total sales tax by adding the tax differences in the 
-     * array list  */
+    /* Obtains the total sales tax for all items */
     public Double getTotalSalesTax() {
         Double total = 0.0; 
         for (int i = 0; i < this.taxDifferences.size(); i++) {
@@ -57,8 +56,8 @@ public class Receipt {
     }
 
 
-    // dont take the method name too seriously :)
-    public void prettyPrintReceipty() {
+    /* Pretty Print the receipt */
+    public void prettyPrintReceipt() {
         // concurently print quantity with the values in the map
         Double total = 0.0; 
         int count = 0; 
@@ -81,16 +80,14 @@ public class Receipt {
         System.out.println("########### Receipt ###########");
     }
 
+
     /* ArrayList of tax differences : items that consist of:
      * TotalCost (After taxes) - Original Cost. */
     private ArrayList<Double> taxDifferences; 
+
     /* Hashmap consisting of itemName, itemCost */
     private HashMap<String, Double> namePricePair; 
+
     /* Quantities for each item  */
     private ArrayList<Integer> quants; 
-
 }
-
-
-
-

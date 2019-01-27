@@ -1,7 +1,9 @@
 /* Item.java is an abstract class to implement TaxItem.java and ExemptItem.java */
 
+/* Item. */
 abstract class Item {
     
+    /* Constructor. */
     public Item(Integer quantity, String name, Double cost, String serializedInfo) {
         this.itemQuantity = quantity;
         this.itemName = name;
@@ -11,32 +13,32 @@ abstract class Item {
     }
 
 
-    /* abstract methods */
+    /* Abstract methods. */
     abstract Double calculateTotalTax();
-    abstract Double calculateTaxDifference(); 
+    abstract Double calculateTaxDifference(); // tax difference does not have to be abstract
 
 
-    /* Get cost */
+    /* Get cost. */
     public Double getCost() {
         return this.itemCost;
     }
 
-    /* Get cost difference */
-     public Double getCostDifference() {
+    /* Get cost difference. */
+    public Double getCostDifference() {
         return this.itemCostDifference;
     }
 
-    /* Get quantity */ 
+    /* Get quantity. */ 
     public Integer getQuant() {
         return this.itemQuantity; 
     }
 
-    /* Get name */
+    /* Get name. */
     public String getName() {
         return this.itemName; 
     }
 
-    /* Get imported */
+    /* Get imported. */
     public Character getImported() {
         return this.imported;
     }
@@ -51,7 +53,7 @@ abstract class Item {
     /* Cost of item. */
     protected Double itemCost; 
    
-    /* Total Difference betweem Items Taxed and Regular Price */
+    /* Total Difference betweem Items Taxed and Regular Price. */
     protected Double itemCostDifference; 
    
     /* First Chracter in serialiedInfo determaines if the item is imported or not. */
@@ -59,10 +61,4 @@ abstract class Item {
 
     /* Import Tax. */
     protected Double importedTax = 0.05;
-
-   
 }
-
-
-
-

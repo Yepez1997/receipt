@@ -1,18 +1,18 @@
+/* TaxedItem is an Item with Tax  */
 class TaxedItem extends Item {
 
+    /* Constructor. */
     public TaxedItem(Integer quantity, String name, Double cost, String serializedInfo) {
         super(quantity, name, cost, serializedInfo);
         this.totalCost = 0.0;
     }
 
-
-    /* Calculate the difference for the total tax and original price. */
+    /* Calculate the difference for the total price with tax and original price. */
     @Override
     Double calculateTaxDifference() {
         super.itemCostDifference = this.totalCost - super.itemCost;
         return super.itemCostDifference;
     }
-
 
     /* Calculate the total tax, includes sales and import 
      *  Both are not required. */
@@ -28,15 +28,14 @@ class TaxedItem extends Item {
         }
     }
 
-    /* Total taxes + cost */
+    /* Total Taxes + Cost. */
     public Double getTotalTaxes() {
         return this.totalCost; 
     }
 
-     /* Sales Tax */
+     /* Sales Tax. */
      final Double salesTax = 0.10; 
 
-    /* total cost */
+    /* Total Cost. */
     private Double totalCost; 
 }
-
