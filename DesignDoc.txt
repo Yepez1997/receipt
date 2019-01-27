@@ -73,7 +73,6 @@ ex.
 
 
 /* Note */
-
 Some outputs are off by a couple cents and I realized the potential 
 underlying issue after outputing the information. The main issue is the 
 multiplying the quantity, an Integer, by the cost, a Double, causes small 
@@ -92,3 +91,10 @@ and in that case we'd approach the problem using the BellManFord Algorithm.
 Parse.java - Change the line that reads the location of the mini-database of words
 Main.java  1/ Compile all files -> javac *.java 
            2/ Run -> java Main [path to input files]
+
+
+/* Other */ 
+I removed all the .class files before submitting 
+Feel free to check my repo: https://github.com/Yepez1997/receipt
+If anything crashes at the beggining, my last commit was my final. Everything
+works fine with my final commit. 
